@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("OpenWallet.Application")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+af47d6f1e0052c7c90bbed160c7fd0ae91af17dd")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6a2947db1083838caefb02a575bb6b5d225afa95")]
 [assembly: System.Reflection.AssemblyProductAttribute("OpenWallet.Application")]
 [assembly: System.Reflection.AssemblyTitleAttribute("OpenWallet.Application")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

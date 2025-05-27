@@ -1,8 +1,13 @@
+using OpenWallet.Application;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddControllers();
+builder.Services.AddEndpointsApiExplorer();
+
+builder.Services.AddApplication();
 
 var app = builder.Build();
 
