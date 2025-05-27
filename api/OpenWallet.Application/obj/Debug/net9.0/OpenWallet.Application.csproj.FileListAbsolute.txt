@@ -1,0 +1,13 @@
+C:\Users\Henrique\Documents\projects\OpenWallet\api\OpenWallet.Application\bin\Debug\net9.0\OpenWallet.Application.deps.json
+C:\Users\Henrique\Documents\projects\OpenWallet\api\OpenWallet.Application\bin\Debug\net9.0\OpenWallet.Application.dll
+C:\Users\Henrique\Documents\projects\OpenWallet\api\OpenWallet.Application\bin\Debug\net9.0\OpenWallet.Application.pdb
+C:\Users\Henrique\Documents\projects\OpenWallet\api\OpenWallet.Application\obj\Debug\net9.0\OpenWallet.Application.csproj.AssemblyReference.cache
+C:\Users\Henrique\Documents\projects\OpenWallet\api\OpenWallet.Application\obj\Debug\net9.0\OpenWallet.Application.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Henrique\Documents\projects\OpenWallet\api\OpenWallet.Application\obj\Debug\net9.0\OpenWallet.Application.AssemblyInfoInputs.cache
+C:\Users\Henrique\Documents\projects\OpenWallet\api\OpenWallet.Application\obj\Debug\net9.0\OpenWallet.Application.AssemblyInfo.cs
+C:\Users\Henrique\Documents\projects\OpenWallet\api\OpenWallet.Application\obj\Debug\net9.0\OpenWallet.Application.csproj.CoreCompileInputs.cache
+C:\Users\Henrique\Documents\projects\OpenWallet\api\OpenWallet.Application\obj\Debug\net9.0\OpenWallet.Application.sourcelink.json
+C:\Users\Henrique\Documents\projects\OpenWallet\api\OpenWallet.Application\obj\Debug\net9.0\OpenWallet.Application.dll
+C:\Users\Henrique\Documents\projects\OpenWallet\api\OpenWallet.Application\obj\Debug\net9.0\refint\OpenWallet.Application.dll
+C:\Users\Henrique\Documents\projects\OpenWallet\api\OpenWallet.Application\obj\Debug\net9.0\OpenWallet.Application.pdb
+C:\Users\Henrique\Documents\projects\OpenWallet\api\OpenWallet.Application\obj\Debug\net9.0\ref\OpenWallet.Application.dll

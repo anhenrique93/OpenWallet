@@ -1,0 +1,18 @@
+[
+  {
+    "ContainingType": "OpenWallet.Api.Controllers.AccountsController",
+    "Method": "Create",
+    "RelativePath": "api/accounts",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "OpenWallet.Contracts.Requests.CreateAccountRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  }
+]

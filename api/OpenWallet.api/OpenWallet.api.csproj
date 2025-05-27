@@ -7,10 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\OpenWallet.Application\OpenWallet.Application.csproj" />
     <ProjectReference Include="..\OpenWallet.Contracts\OpenWallet.Contracts.csproj" />
   </ItemGroup>
