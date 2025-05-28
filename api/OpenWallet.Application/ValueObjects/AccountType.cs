@@ -1,4 +1,6 @@
-﻿namespace OpenWallet.Application.ValueObjects
+﻿using System.Text.Json.Serialization;
+
+namespace OpenWallet.Application.ValueObjects
 {
     public record AccountType
     {

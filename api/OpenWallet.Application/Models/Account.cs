@@ -15,12 +15,12 @@ namespace OpenWallet.Application.Models
         public string Name { get; private set; }
         public string Description { get; private set; }
         public Currency Currency { get; private set; }
-        public string AccountType { get; private set; }
+        public AccountType Type { get; private set; }
         public decimal Balance { get; private set; }
         public DateTime CreatedAt { get; init; }
         public DateTime UpdatedAt { get; private set; }
 
-        public static Account CreateNewAccount(string name, string description, Currency currency, string type, decimal? balance)
+        public static Account CreateNewAccount(string name, string description, Currency currency, AccountType type, decimal? balance)
         {
             return new Account
             {
@@ -47,7 +47,7 @@ namespace OpenWallet.Application.Models
             UpdatedAt = DateTime.UtcNow;
         }
 
-        public void UpdateType(string type)
+        public void UpdateType(AccountType type)
         {
             Type = type;
             UpdatedAt = DateTime.UtcNow;
@@ -55,6 +55,11 @@ namespace OpenWallet.Application.Models
         public void UpdateBalance(decimal value)
         {
             Balance += value;
+            UpdatedAt = DateTime.UtcNow;
+        }
+        public void UpdateCurrency(Currency currency)
+        {
+            Currency = currency;
             UpdatedAt = DateTime.UtcNow;
         }
     }
