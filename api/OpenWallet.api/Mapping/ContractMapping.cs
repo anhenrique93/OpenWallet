@@ -1,6 +1,7 @@
 ﻿using OpenWallet.Application.Models;
 using OpenWallet.Application.ValueObjects;
 using OpenWallet.Contracts.Requests;
+using System.Runtime.CompilerServices;
 
 namespace OpenWallet.Api.Mapping
 {
@@ -8,8 +9,8 @@ namespace OpenWallet.Api.Mapping
     {
         public static Account MapToAccount(this CreateAccountRequest request)
         {
-            var currency = Currency.Create(request.Currency);
             var type = AccountType.Create(request.Type);
+            var currency = Currency.Create(request.Currency);
             var money = Money.Create(request.InitialBalance, currency);
 
             return Account.CreateNewAccount(
