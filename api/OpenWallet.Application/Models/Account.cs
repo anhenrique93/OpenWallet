@@ -15,7 +15,7 @@ namespace OpenWallet.Application.Models
         public string Name { get; private set; }
         public string Description { get; private set; }
         public Currency Currency { get; private set; }
-        public string Type { get; private set; } // e.g., "Checking", "Savings", "Credit Card" TODO: Create a AccountCategory class
+        public string AccountType { get; private set; }
         public decimal Balance { get; private set; }
         public DateTime CreatedAt { get; init; }
         public DateTime UpdatedAt { get; private set; }
