@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OpenWallet.Application.ValueObjects;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,13 +14,13 @@ namespace OpenWallet.Application.Models
         public Guid Id { get; init; }
         public string Name { get; private set; }
         public string Description { get; private set; }
-        public string Currency { get; private set; }
+        public Currency Currency { get; private set; }
         public string Type { get; private set; } // e.g., "Checking", "Savings", "Credit Card" TODO: Create a AccountCategory class
         public decimal Balance { get; private set; }
         public DateTime CreatedAt { get; init; }
         public DateTime UpdatedAt { get; private set; }
 
-        public static Account CreateNewAccount(string name, string description, string currency, string type, decimal? balance)
+        public static Account CreateNewAccount(string name, string description, Currency currency, string type, decimal? balance)
         {
             return new Account
             {

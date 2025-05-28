@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using OpenWallet.Api.Mapping;
 using OpenWallet.Application.Repositories;
 using OpenWallet.Contracts.Requests;
 
