@@ -14,22 +14,20 @@ namespace OpenWallet.Application.Models
         public Guid Id { get; init; }
         public string Name { get; private set; }
         public string Description { get; private set; }
-        public Currency Currency { get; private set; }
+        public Money Money { get; private set; }
         public AccountType Type { get; private set; }
-        public decimal Balance { get; private set; }
         public DateTime CreatedAt { get; init; }
         public DateTime UpdatedAt { get; private set; }
 
-        public static Account CreateNewAccount(string name, string description, Currency currency, AccountType type, decimal? balance)
+        public static Account CreateNewAccount(string name, string description, AccountType type, Money money)
         {
             return new Account
             {
                 Id = Guid.NewGuid(),
                 Name = name,
                 Description = description,
-                Currency = currency,
                 Type = type,
-                Balance = balance ?? 0m, // Default to 0 if no initial balance is provided
+                Money = money,
                 CreatedAt = DateTime.UtcNow,
                 UpdatedAt = DateTime.UtcNow
             };
@@ -46,20 +44,20 @@ namespace OpenWallet.Application.Models
             Description = description;
             UpdatedAt = DateTime.UtcNow;
         }
-
         public void UpdateType(AccountType type)
         {
             Type = type;
             UpdatedAt = DateTime.UtcNow;
         }
-        public void UpdateBalance(decimal value)
+        public void AddMoney(Money other)
         {
-            Balance += value;
+            Money = Money.Add(other);
             UpdatedAt = DateTime.UtcNow;
         }
-        public void UpdateCurrency(Currency currency)
+
+        public void SubtractMoney(Money other)
         {
-            Currency = currency;
+            Money = Money.Subtract(other);
             UpdatedAt = DateTime.UtcNow;
         }
     }
