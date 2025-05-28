@@ -8,7 +8,6 @@ namespace OpenWallet.Application.Models
 {
     public class Account
     {
-
         protected Account() { } // EF Core
 
         public Guid Id { get; init; }
