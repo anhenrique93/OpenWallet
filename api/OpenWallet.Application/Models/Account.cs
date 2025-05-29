@@ -1,9 +1,4 @@
 ﻿using OpenWallet.Application.ValueObjects;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace OpenWallet.Application.Models
 {
@@ -19,18 +14,15 @@ namespace OpenWallet.Application.Models
         public DateTime CreatedAt { get; init; }
         public DateTime UpdatedAt { get; private set; }
 
-        public static Account CreateNewAccount(string name, string description, AccountType type, Money money)
+        public Account (string name, string description, AccountType type, Money money)
         {
-            return new Account
-            {
-                Id = Guid.NewGuid(),
-                Name = name,
-                Description = description,
-                Type = type,
-                Money = money,
-                CreatedAt = DateTime.UtcNow,
-                UpdatedAt = DateTime.UtcNow
-            };
+            Id = Guid.NewGuid();
+            Name = name;
+            Description = description;
+            Type = type;
+            Money = money;
+            CreatedAt = DateTime.UtcNow;
+            UpdatedAt = DateTime.UtcNow;
         }
 
         public void UpdateName(string name)
@@ -54,7 +46,6 @@ namespace OpenWallet.Application.Models
             Money = Money.Add(other);
             UpdatedAt = DateTime.UtcNow;
         }
-
         public void SubtractMoney(Money other)
         {
             Money = Money.Subtract(other);

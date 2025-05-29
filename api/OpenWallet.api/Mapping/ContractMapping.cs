@@ -13,7 +13,7 @@ namespace OpenWallet.Api.Mapping
             var currency = Currency.Create(request.Currency);
             var money = Money.Create(request.InitialBalance, currency);
 
-            return Account.CreateNewAccount(
+            return new Account(
                 name: request.Name,
                 description: request.Description,
                 type: type,

@@ -1,5 +1,7 @@
 ﻿using System.Text.Json.Serialization;
 
+//TODO: Alterar AccountTyoe para ser um enum.
+
 namespace OpenWallet.Application.ValueObjects
 {
     public record AccountType
