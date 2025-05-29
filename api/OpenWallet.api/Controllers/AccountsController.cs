@@ -16,13 +16,13 @@ namespace OpenWallet.Api.Controllers
             _accountRepository = accountRepository;
         }
 
-        [HttpPost("accounts")]
+        [HttpPost(ApiEndpoints.Accounts.Create)]
         public async Task<IActionResult> Create([FromBody] CreateAccountRequest request)
         {
             var account = request.MapToAccount();
 
             var result = await _accountRepository.CreateAsync(account);
-            return Created($"/api/accounts/{account.Id}", account);
+            return Created($"{ApiEndpoints.Accounts.Create}/{account.Id}", account);
         }
     }
 }
