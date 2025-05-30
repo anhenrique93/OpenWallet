@@ -6,7 +6,6 @@ using OpenWallet.Contracts.Requests;
 namespace OpenWallet.Api.Controllers
 {
     [ApiController]
-    [Route("api")]
     public class AccountsController : ControllerBase
     {
         private readonly IAccountRepository _accountRepository;
@@ -21,8 +20,30 @@ namespace OpenWallet.Api.Controllers
         {
             var account = request.MapToAccount();
 
-            var result = await _accountRepository.CreateAsync(account);
-            return Created($"{ApiEndpoints.Accounts.Create}/{account.Id}", account);
+            await _accountRepository.CreateAsync(account);
+            var response = account.MapToResponse();
+            return Created($"/{ApiEndpoints.Accounts.Create}/{account.Id}", response);
+        }
+
+        [HttpGet(ApiEndpoints.Accounts.Get)]
+        public async Task<IActionResult> Get([FromRoute] Guid id)
+        {
+            var account = await _accountRepository.GetByIdAsync(id);
+            if (account is null)
+            {
+                return NotFound();
+            }
+
+            var response = account.MapToResponse();
+            return Ok(response);
+        }
+
+        [HttpGet(ApiEndpoints.Accounts.GetAll)]
+        public async Task<IActionResult> GetAll()
+        {
+            var accounts = await _accountRepository.GetAllAsync();
+            var accountsResponse = accounts.MapToResponse();
+            return Ok(accountsResponse);
         }
     }
 }
