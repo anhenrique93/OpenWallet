@@ -4,16 +4,15 @@ namespace OpenWallet.Application.Models
 {
     public class Account
     {
-        protected Account() { } // EF Core
-
         public Guid Id { get; init; }
-        public string Name { get; private set; }
-        public string Description { get; private set; }
-        public Money Money { get; private set; }
-        public AccountType Type { get; private set; }
+        public string Name { get; init; }
+        public string Description { get; init; }
+        public Money Money { get; init; }
+        public AccountType Type { get; init; }
         public DateTime CreatedAt { get; init; }
-        public DateTime UpdatedAt { get; private set; }
+        public DateTime UpdatedAt { get; init; }
 
+        // New accpunt Constructor
         public Account (string name, string description, AccountType type, Money money)
         {
             Id = Guid.NewGuid();
@@ -25,30 +24,15 @@ namespace OpenWallet.Application.Models
             UpdatedAt = DateTime.UtcNow;
         }
 
-        public void UpdateName(string name)
+        // Existing account Constructor
+        public Account(Guid id, string name, string description, Money money, AccountType type, DateTime createdAt)
         {
+            Id = id;
             Name = name;
-            UpdatedAt = DateTime.UtcNow;
-        }
-
-        public void UpdateDescription(string description)
-        {
             Description = description;
-            UpdatedAt = DateTime.UtcNow;
-        }
-        public void UpdateType(AccountType type)
-        {
+            Money = money;
             Type = type;
-            UpdatedAt = DateTime.UtcNow;
-        }
-        public void AddMoney(Money other)
-        {
-            Money = Money.Add(other);
-            UpdatedAt = DateTime.UtcNow;
-        }
-        public void SubtractMoney(Money other)
-        {
-            Money = Money.Subtract(other);
+            CreatedAt = createdAt;
             UpdatedAt = DateTime.UtcNow;
         }
     }

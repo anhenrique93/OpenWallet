@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using OpenWallet.Api.Mapping;
 using OpenWallet.Application.Repositories;
+using OpenWallet.Application.ValueObjects;
 using OpenWallet.Contracts.Requests;
 
 namespace OpenWallet.Api.Controllers
@@ -44,6 +45,27 @@ namespace OpenWallet.Api.Controllers
             var accounts = await _accountRepository.GetAllAsync();
             var accountsResponse = accounts.MapToResponse();
             return Ok(accountsResponse);
+        }
+
+        [HttpPut(ApiEndpoints.Accounts.Update)]
+        public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] UpdateAccountRequest request)
+        {
+            var accountToUpdate = await _accountRepository.GetByIdAsync(id);
+            if (accountToUpdate is null)
+            {
+                return NotFound();
+            }
+
+            var account = request.MapToAccount(
+                id: id,
+                createdAt: accountToUpdate.CreatedAt,
+                amount: accountToUpdate.Money.Amount
+            );
+
+            var updated = await _accountRepository.UpdateAsync(account);
+            if (!updated) return NotFound();
+            var response = account.MapToResponse();
+            return Ok(response);
         }
     }
 }

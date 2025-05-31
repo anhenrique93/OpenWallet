@@ -12,13 +12,29 @@ namespace OpenWallet.Api.Mapping
         {
             var type = AccountType.Create(request.Type);
             var currency = Currency.Create(request.Currency);
-            var money = Money.Create(request.InitialBalance, currency);
+            var money = Money.Create(request.InitiaAmount, currency);
 
             return new Account(
                 name: request.Name,
                 description: request.Description,
                 type: type,
                 money: money
+            );
+        }
+
+        public static Account MapToAccount(this UpdateAccountRequest request, Guid id, DateTime createdAt, decimal amount)
+        {
+            var type = AccountType.Create(request.Type);
+            var currency = Currency.Create(request.Currency);
+            var newMoney = Money.Create(amount, currency);
+
+            return new Account(
+                id: id,
+                name: request.Name,
+                description: request.Description,
+                money: newMoney,
+                type: type,
+                createdAt: createdAt
             );
         }
 

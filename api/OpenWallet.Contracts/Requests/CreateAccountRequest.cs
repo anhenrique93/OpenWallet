@@ -6,11 +6,12 @@ using System.Threading.Tasks;
 
 namespace OpenWallet.Contracts.Requests
 {
-    public record CreateAccountRequest(
-        string Name,
-        string Description,
-        string Currency,
-        string Type,
-        decimal InitialBalance = 0m
-    );
+    public class CreateAccountRequest
+    {
+        public required string Name { get; init; }
+        public required string Description { get; init; }
+        public required string Currency { get; init; } // e.g., "USD", "EUR"
+        public required string Type { get; init; } // e.g., "Checking", "Savings", "Credit Card" TODO: Create a AccountCategory class
+        public decimal InitiaAmount { get; init; }
+    }
 }
