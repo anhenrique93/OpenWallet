@@ -34,7 +34,8 @@ namespace OpenWallet.Api.Mapping
                 description: request.Description,
                 money: newMoney,
                 type: type,
-                createdAt: createdAt
+                createdAt: createdAt,
+                updatedAt: DateTime.UtcNow
             );
         }
 

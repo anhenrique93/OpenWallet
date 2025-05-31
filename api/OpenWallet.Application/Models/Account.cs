@@ -12,8 +12,8 @@ namespace OpenWallet.Application.Models
         public DateTime CreatedAt { get; init; }
         public DateTime UpdatedAt { get; init; }
 
-        // New accpunt Constructor
-        public Account (string name, string description, AccountType type, Money money)
+        // Constructor for NEW account (e.g., when creating a new account)
+        public Account(string name, string description, AccountType type, Money money)
         {
             Id = Guid.NewGuid();
             Name = name;
@@ -24,8 +24,8 @@ namespace OpenWallet.Application.Models
             UpdatedAt = DateTime.UtcNow;
         }
 
-        // Existing account Constructor
-        public Account(Guid id, string name, string description, Money money, AccountType type, DateTime createdAt)
+        // Constructor for EXISTING account (e.g., loaded from database)
+        public Account(Guid id, string name, string description, Money money, AccountType type, DateTime createdAt, DateTime updatedAt)
         {
             Id = id;
             Name = name;
@@ -33,7 +33,9 @@ namespace OpenWallet.Application.Models
             Money = money;
             Type = type;
             CreatedAt = createdAt;
-            UpdatedAt = DateTime.UtcNow;
+            UpdatedAt = updatedAt;
         }
+
+        protected Account() { }
     }
 }

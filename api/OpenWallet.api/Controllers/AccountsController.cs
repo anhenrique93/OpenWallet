@@ -67,5 +67,13 @@ namespace OpenWallet.Api.Controllers
             var response = account.MapToResponse();
             return Ok(response);
         }
+
+        [HttpDelete(ApiEndpoints.Accounts.Delete)]
+        public async Task<IActionResult> Delete([FromRoute] Guid id)
+        {
+            var deleted = await _accountRepository.DeleteByIdAsync(id);
+            if (!deleted) return NotFound();
+            return Ok();
+        }
     }
 }
