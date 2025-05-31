@@ -22,7 +22,7 @@ namespace OpenWallet.Api.Controllers
 
             await _accountRepository.CreateAsync(account);
             var response = account.MapToResponse();
-            return Created($"/{ApiEndpoints.Accounts.Create}/{account.Id}", response);
+            return CreatedAtAction(nameof(Get), new { id = account.Id }, response);
         }
 
         [HttpGet(ApiEndpoints.Accounts.Get)]
