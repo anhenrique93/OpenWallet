@@ -21,7 +21,7 @@ namespace OpenWallet.Application.Models
             Type = type;
             Money = money;
             CreatedAt = DateTime.UtcNow;
-            UpdatedAt = DateTime.UtcNow;8ju 
+            UpdatedAt = DateTime.UtcNow;
         }
 
         // Constructor for EXISTING account (e.g., loaded from database)
