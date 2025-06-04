@@ -6,9 +6,9 @@ namespace OpenWallet.Application.Repositories
 {
     public class AccountRepository : IAccountRepository
     {
-        private readonly OpenWalletContext _context;
+        private readonly ApplicationDbContext _context;
 
-        public AccountRepository(OpenWalletContext context)
+        public AccountRepository(ApplicationDbContext context)
         {
             _context = context;
         }

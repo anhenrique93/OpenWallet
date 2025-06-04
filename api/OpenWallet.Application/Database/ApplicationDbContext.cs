@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using OpenWallet.Application.Database.Configurations;
 using OpenWallet.Application.Models;
 using OpenWallet.Application.ValueObjects;
 using System;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace OpenWallet.Application.Database
 {
-    public class OpenWalletContext : DbContext
+    public class ApplicationDbContext : DbContext
     {
         public DbSet<Account> Accounts => Set<Account>();
 
@@ -22,14 +23,7 @@ namespace OpenWallet.Application.Database
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Account>()
-                .OwnsOne(a => a.Type);
-
-            modelBuilder.Entity<Account>()
-                .OwnsOne(a => a.Money)
-                .OwnsOne(m => m.Currency);
-
-            base.OnModelCreating(modelBuilder);
+            modelBuilder.ApplyConfiguration(new AccountConfiguration());
         }
     }
 }

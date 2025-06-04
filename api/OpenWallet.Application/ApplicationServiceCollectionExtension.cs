@@ -21,7 +21,7 @@ namespace OpenWallet.Application
 
         public static IServiceCollection AddEntityFrameworkCore(this IServiceCollection services)
         {
-            services.AddDbContext<OpenWalletContext>();
+            services.AddDbContext<ApplicationDbContext>();
             services.AddScoped<DbInitializer>(); 
             return services;
         }

@@ -8,9 +8,9 @@ namespace OpenWallet.Application.Database
 {
     public class DbInitializer
     {
-        private readonly OpenWalletContext _context;
+        private readonly ApplicationDbContext _context;
 
-        public DbInitializer(OpenWalletContext context)
+        public DbInitializer(ApplicationDbContext context)
         {
             _context = context;
         }
