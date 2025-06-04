@@ -1,0 +1,13 @@
+- [ ] User can CRUD a transation;
+- [ ] A transation has incomings and outcomings;
+- [ ] The incoming can be of type fix or variable;
+- [ ] The outcomings can be of type fix or variable;
+- [ ] The transations has categories;
+- [ ] The incoming has categories;
+- [ ] The outcomings has categories;
+- [ ] User can CRUD incoming categories;
+- [ ] User can CRUD outcoming categories;
+- [ ] User can filter transations by date, type, category, incoming or outcoming;
+- [ ] System can calculate the balance by date;
+- [ ] System can calculate the atual balance;
+- [ ] User can create recurring rules; *
