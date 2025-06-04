@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using OpenWallet.Api.Mapping;
 using OpenWallet.Application.Repositories;
+using OpenWallet.Application.Services;
 using OpenWallet.Application.ValueObjects;
 using OpenWallet.Contracts.Requests;
 
@@ -9,11 +10,11 @@ namespace OpenWallet.Api.Controllers
     [ApiController]
     public class AccountsController : ControllerBase
     {
-        private readonly IAccountRepository _accountRepository;
+        private readonly IAccountService _accountService;
 
-        public AccountsController(IAccountRepository accountRepository)
+        public AccountsController(IAccountService accountService)
         {
-            _accountRepository = accountRepository;
+            _accountService = accountService;
         }
 
         [HttpPost(ApiEndpoints.Accounts.Create)]
@@ -21,7 +22,7 @@ namespace OpenWallet.Api.Controllers
         {
             var account = request.MapToAccount();
 
-            await _accountRepository.CreateAsync(account);
+            await _accountService.CreateAsync(account);
             var response = account.MapToResponse();
             return CreatedAtAction(nameof(Get), new { id = account.Id }, response);
         }
@@ -29,7 +30,7 @@ namespace OpenWallet.Api.Controllers
         [HttpGet(ApiEndpoints.Accounts.Get)]
         public async Task<IActionResult> Get([FromRoute] Guid id)
         {
-            var account = await _accountRepository.GetByIdAsync(id);
+            var account = await _accountService.GetByIdAsync(id);
             if (account is null)
             {
                 return NotFound();
@@ -42,7 +43,7 @@ namespace OpenWallet.Api.Controllers
         [HttpGet(ApiEndpoints.Accounts.GetAll)]
         public async Task<IActionResult> GetAll()
         {
-            var accounts = await _accountRepository.GetAllAsync();
+            var accounts = await _accountService.GetAllAsync();
             var accountsResponse = accounts.MapToResponse();
             return Ok(accountsResponse);
         }
@@ -50,7 +51,7 @@ namespace OpenWallet.Api.Controllers
         [HttpPut(ApiEndpoints.Accounts.Update)]
         public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] UpdateAccountRequest request)
         {
-            var accountToUpdate = await _accountRepository.GetByIdAsync(id);
+            var accountToUpdate = await _accountService.GetByIdAsync(id);
             if (accountToUpdate is null)
             {
                 return NotFound();
@@ -62,16 +63,16 @@ namespace OpenWallet.Api.Controllers
                 amount: accountToUpdate.Money.Amount
             );
 
-            var updated = await _accountRepository.UpdateAsync(account);
-            if (!updated) return NotFound();
-            var response = account.MapToResponse();
+            var updatedAccount = await _accountService.UpdateAsync(account);
+            if (updatedAccount is null) return NotFound();
+            var response = updatedAccount.MapToResponse();
             return Ok(response);
         }
 
         [HttpDelete(ApiEndpoints.Accounts.Delete)]
         public async Task<IActionResult> Delete([FromRoute] Guid id)
         {
-            var deleted = await _accountRepository.DeleteByIdAsync(id);
+            var deleted = await _accountService.DeleteByIdAsync(id);
             if (!deleted) return NotFound();
             return Ok();
         }
