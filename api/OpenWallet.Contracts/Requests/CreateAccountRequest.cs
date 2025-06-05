@@ -11,7 +11,7 @@ namespace OpenWallet.Contracts.Requests
         public required string Name { get; init; }
         public required string Description { get; init; }
         public required string Currency { get; init; } // e.g., "USD", "EUR"
-        public required string Type { get; init; } // e.g., "Checking", "Savings", "Credit Card" TODO: Create a AccountCategory class
-        public decimal InitiaAmount { get; init; }
+        public required string Category { get; init; } // e.g., "Checking", "Savings", "Credit Card"
+        public decimal InitialAmount { get; init; }
     }
 }

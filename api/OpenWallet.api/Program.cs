@@ -12,7 +12,7 @@ builder.Services.AddEntityFrameworkCore();
 
 var app = builder.Build();
 
-using (var scope = app.Services.CreateScope())
+await using (var scope = app.Services.CreateAsyncScope())
 {
     var dbInitializer = scope.ServiceProvider.GetRequiredService<DbInitializer>();
     await dbInitializer.InitializeAsync(); // Initialize the database, this should be handled by migrations in production

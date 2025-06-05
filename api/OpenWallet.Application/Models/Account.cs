@@ -1,42 +1,37 @@
-﻿using OpenWallet.Application.ValueObjects;
-using System.ComponentModel.DataAnnotations.Schema;
-
+﻿using OpenWallet.Application.Helpers;
+using OpenWallet.Application.ValueObjects;
 
 namespace OpenWallet.Application.Models
 {
     public class Account
     {
         public Guid Id { get; init; } = Guid.NewGuid();
-        [Column(TypeName = "varchar")]
         public string Name { get; init; }
-        [Column(TypeName = "varchar")]
         public string Description { get; init; }
         public Money Money { get; init; }
-        public AccountType Type { get; init; }
+        public Guid CategoryId { get; init; }
+        public AccountCategory Category { get; init; }
         public DateTime CreatedAt { get; init; } = DateTime.UtcNow;
         public DateTime UpdatedAt { get; init; } = DateTime.UtcNow;
 
         // Constructor for NEW account (e.g., when creating a new account)
-        public Account(string name, string description, AccountType type, Money money)
+        public Account(string name, string description, AccountCategory category, Money money)
         {
-            Name = name;
-            Description = description;
-            Type = type;
+            Name = Guard.AgainstInvalidLength(name, 5, 128, nameof(name));
+            Description = Guard.AgainstInvalidLength(description, 10, 1000, nameof(description)); 
+            Category = category;
             Money = money;
+            CategoryId = category.Id;
         }
 
         // Constructor for EXISTING account (e.g., loaded from database)
-        public Account(Guid id, string name, string description, Money money, AccountType type, DateTime createdAt, DateTime updatedAt)
+        public Account(Guid id, string name, string description, Money money, AccountCategory category, DateTime createdAt, DateTime updatedAt)
+            : this(name, description, category, money)
         {
             Id = id;
-            Name = name;
-            Description = description;
-            Money = money;
-            Type = type;
             CreatedAt = createdAt;
             UpdatedAt = updatedAt;
         }
-
         protected Account() { }
     }
 }

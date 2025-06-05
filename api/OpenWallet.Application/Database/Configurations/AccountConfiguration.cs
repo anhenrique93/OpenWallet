@@ -1,12 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using OpenWallet.Application.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection.Emit;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace OpenWallet.Application.Database.Configurations
 {
@@ -15,10 +9,13 @@ namespace OpenWallet.Application.Database.Configurations
         public void Configure(EntityTypeBuilder<Account> builder)
         {
             builder
-                .HasKey(account => account.Id);       
+                .HasKey(account => account.Id);
 
             builder
-                .OwnsOne(a => a.Type);
+                .HasOne(account => account.Category) // Account has one Category
+                .WithMany(category => category.Accounts) // Category has many Accounts
+                .HasPrincipalKey(category => category.Id) // Principal key in Category
+                .HasForeignKey(account => account.CategoryId); // Category Foreign key in Account
 
             builder
                 .Property(a => a.Name)
@@ -28,7 +25,7 @@ namespace OpenWallet.Application.Database.Configurations
             builder
                 .Property(a => a.Description)
                 .IsRequired()
-                .HasMaxLength(1150);
+                .HasMaxLength(1000);
 
             builder
                 .OwnsOne(a => a.Money)

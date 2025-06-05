@@ -20,7 +20,7 @@ namespace OpenWallet.Contracts.Responses
         public required Guid Id { get; init; }
         public required string Name { get; init; }
         public required string Description { get; init; }
-        public required string Type { get; init; } // e.g., See OpenWallet.Application.ValueObjects.AccountType
+        public required string Category { get; init; } // e.g., See OpenWallet.Application.ValueObjects.AccountType
         public required  MoneyResponse Money { get; init; }
         public required DateTime CreatedAt { get; init; }
         public required DateTime UpdatedAt { get; init; }

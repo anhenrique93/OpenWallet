@@ -2,7 +2,6 @@
 using OpenWallet.Application.ValueObjects;
 using OpenWallet.Contracts.Requests;
 using OpenWallet.Contracts.Responses;
-using System.Runtime.CompilerServices;
 
 namespace OpenWallet.Api.Mapping
 {
@@ -10,21 +9,21 @@ namespace OpenWallet.Api.Mapping
     {
         public static Account MapToAccount(this CreateAccountRequest request)
         {
-            var type = AccountType.Create(request.Type);
+            var category = new AccountCategory(request.Category);
             var currency = Currency.Create(request.Currency);
-            var money = Money.Create(request.InitiaAmount, currency);
+            var money = Money.Create(request.InitialAmount, currency);
 
             return new Account(
                 name: request.Name,
                 description: request.Description,
-                type: type,
+                category: category,
                 money: money
             );
         }
 
         public static Account MapToAccount(this UpdateAccountRequest request, Guid id, DateTime createdAt, decimal amount)
         {
-            var type = AccountType.Create(request.Type);
+            var category = new AccountCategory(request.Category);
             var currency = Currency.Create(request.Currency);
             var newMoney = Money.Create(amount, currency);
 
@@ -33,7 +32,7 @@ namespace OpenWallet.Api.Mapping
                 name: request.Name,
                 description: request.Description,
                 money: newMoney,
-                type: type,
+                category: category,
                 createdAt: createdAt,
                 updatedAt: DateTime.UtcNow
             );
@@ -54,7 +53,7 @@ namespace OpenWallet.Api.Mapping
                 Id = account.Id,
                 Name = account.Name,
                 Description = account.Description,
-                Type = account.Type.Name,
+                Category = account.Category.Name,
                 Money = moneyResponse,
                 CreatedAt = account.CreatedAt,
                 UpdatedAt = account.UpdatedAt
