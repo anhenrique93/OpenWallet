@@ -10,8 +10,8 @@ namespace OpenWallet.Contracts.Requests
     {
         public required string Name { get; init; }
         public required string Description { get; init; }
-        public required string Currency { get; init; } // e.g., "USD", "EUR"
-        public required string Category { get; init; } // e.g., "Checking", "Savings", "Credit Card"
+        public required string Currency { get; init; }
+        public required Guid CategoryId { get; init; }
         public decimal InitialAmount { get; init; }
     }
 }
