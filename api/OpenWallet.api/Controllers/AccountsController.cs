@@ -2,6 +2,7 @@
 using OpenWallet.Api.Mapping;
 using OpenWallet.Application.Services;
 using OpenWallet.Contracts.Requests;
+using System.Runtime.CompilerServices;
 
 namespace OpenWallet.Api.Controllers
 {
@@ -16,11 +17,12 @@ namespace OpenWallet.Api.Controllers
         }
 
         [HttpPost(ApiEndpoints.Accounts.Create)]
-        public async Task<IActionResult> Create([FromBody] CreateAccountRequest request)
+        public async Task<IActionResult> Create([FromBody] CreateAccountRequest request,
+            CancellationToken token)
         {
             var accountRequestDto = request.MapToAccountRequestDto();
 
-            var accountResponseDto = await _accountService.CreateAsync(accountRequestDto);
+            var accountResponseDto = await _accountService.CreateAsync(accountRequestDto, token);
 
             if (accountResponseDto is null) return BadRequest("Unable to create account. Invalid data or repository error.");
 

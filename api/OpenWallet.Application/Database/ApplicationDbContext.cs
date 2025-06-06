@@ -20,7 +20,6 @@ namespace OpenWallet.Application.Database
         {
             optionsBuilder.UseSqlServer(
                     "Server=localhost,1433;Database=OpenWalletDB;User Id=sa;Password=MyPassword123;TrustServerCertificate=True;");
-            base.OnConfiguring(optionsBuilder);
             optionsBuilder.UseAsyncSeeding(async (context, _, ct) =>
             {
                 context.Set<AccountCategory>().AddRange(

@@ -4,6 +4,7 @@ using OpenWallet.Application.Models;
 using OpenWallet.Application.Repositories;
 using OpenWallet.Application.Validator;
 using OpenWallet.Application.ValueObjects;
+using System.Threading;
 
 namespace OpenWallet.Application.Services
 {
@@ -21,11 +22,11 @@ namespace OpenWallet.Application.Services
             _accountRequestDtoValidator = accountRequestDtoValidator;
         }
 
-        public async Task<AccountResponseDto> CreateAsync(CreateAccountRequestDto accountDto)
+        public async Task<AccountResponseDto> CreateAsync(CreateAccountRequestDto accountDto, CancellationToken token = default)
         {
-            await _accountRequestDtoValidator.ValidateAndThrowAsync(accountDto);
+            await _accountRequestDtoValidator.ValidateAndThrowAsync(accountDto, token);
 
-            var accountCategory = await _accountCategoryRepository.GetByIdAsync(accountDto.AccountCategoryId);
+            var accountCategory = await _accountCategoryRepository.GetByIdAsync(accountDto.AccountCategoryId, token);
 
             if (accountCategory is null)
                 throw new DomainException("Invalid account category.");
@@ -40,9 +41,9 @@ namespace OpenWallet.Application.Services
                 money: money
             );
 
-            var result = await _accountRepository.CreateAsync(account);
+            var result = await _accountRepository.CreateAsync(account, token);
 
-            if (!result) return null;
+            if (!result) throw new DomainException("Unable to create account. Repository error.");
 
             return new AccountResponseDto
             (
@@ -56,22 +57,22 @@ namespace OpenWallet.Application.Services
             );
         }
 
-        public async Task<bool> DeleteByIdAsync(Guid id)
+        public async Task<bool> DeleteByIdAsync(Guid id, CancellationToken token = default)
         {
             throw new NotImplementedException();
         }
 
-        public async Task<IEnumerable<AccountResponseDto>> GetAllAsync()
+        public async Task<IEnumerable<AccountResponseDto>> GetAllAsync(CancellationToken token = default)
         {
             throw new NotImplementedException();
         }
 
-        public async Task<AccountResponseDto?> GetByIdAsync(Guid id)
+        public async Task<AccountResponseDto?> GetByIdAsync(Guid id, CancellationToken token = default)
         {
             throw new NotImplementedException();
         }
 
-        public async Task<Account?> UpdateAsync(Account account)
+        public async Task<Account?> UpdateAsync(Account account, CancellationToken token = default)
         {
             throw new NotImplementedException();
         }
