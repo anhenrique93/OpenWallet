@@ -4,7 +4,7 @@
         string Name, 
         string Description, 
         string Currency, 
-        decimal Amount,
+        decimal? Amount,
         Guid AccountCategoryId
     );
 }

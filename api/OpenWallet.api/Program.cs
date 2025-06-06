@@ -1,3 +1,4 @@
+using OpenWallet.Api.Mapping;
 using OpenWallet.Application;
 using OpenWallet.Application.Database;
 
@@ -24,6 +25,7 @@ app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
+app.UseMiddleware<ValidationMappingMiddleware>();
 app.MapControllers();
 
 app.Run();

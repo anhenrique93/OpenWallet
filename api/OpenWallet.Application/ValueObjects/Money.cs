@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OpenWallet.Application.Helpers;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -16,9 +17,13 @@ namespace OpenWallet.Application.ValueObjects
         public static Money Create(decimal? amount, Currency? currency)
         {
             if (currency == null)
-                throw new ArgumentException(nameof(currency));
+                throw new ArgumentNullException(nameof(currency));
 
-            return new Money { Amount = amount ?? 0m, Currency = currency };
+            var validAmount = amount.HasValue 
+                ? Guard.AgainstInitialValidAmount(amount.Value) 
+                : 0m;
+
+            return new Money { Amount = validAmount, Currency = currency };
         }
 
         public Money Add(Money newMoney)
