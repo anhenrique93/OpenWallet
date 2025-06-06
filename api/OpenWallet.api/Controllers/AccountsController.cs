@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using OpenWallet.Api.Mapping;
-using OpenWallet.Application.Repositories;
 using OpenWallet.Application.Services;
-using OpenWallet.Application.ValueObjects;
 using OpenWallet.Contracts.Requests;
 
 namespace OpenWallet.Api.Controllers
@@ -20,11 +18,14 @@ namespace OpenWallet.Api.Controllers
         [HttpPost(ApiEndpoints.Accounts.Create)]
         public async Task<IActionResult> Create([FromBody] CreateAccountRequest request)
         {
-            var account = request.MapToAccount();
+            var accountRequestDto = request.MapToAccountRequestDto();
 
-            await _accountService.CreateAsync(account);
-            var response = account.MapToResponse();
-            return CreatedAtAction(nameof(Get), new { id = account.Id }, response);
+            var accountResponseDto = await _accountService.CreateAsync(accountRequestDto);
+
+            if (accountResponseDto is null) return BadRequest("Unable to create account. Invalid data or repository error.");
+
+            var response = accountResponseDto.MapToResponse();
+            return CreatedAtAction(nameof(Get), new { id = response.Id }, response);
         }
 
         [HttpGet(ApiEndpoints.Accounts.Get)]
@@ -40,6 +41,7 @@ namespace OpenWallet.Api.Controllers
             return Ok(response);
         }
 
+        /*
         [HttpGet(ApiEndpoints.Accounts.GetAll)]
         public async Task<IActionResult> GetAll()
         {
@@ -47,10 +49,13 @@ namespace OpenWallet.Api.Controllers
             var accountsResponse = accounts.MapToResponse();
             return Ok(accountsResponse);
         }
+        */
 
+        /*
         [HttpPut(ApiEndpoints.Accounts.Update)]
         public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] UpdateAccountRequest request)
         {
+
             var accountToUpdate = await _accountService.GetByIdAsync(id);
             if (accountToUpdate is null)
             {
@@ -68,6 +73,7 @@ namespace OpenWallet.Api.Controllers
             var response = updatedAccount.MapToResponse();
             return Ok(response);
         }
+        */
 
         [HttpDelete(ApiEndpoints.Accounts.Delete)]
         public async Task<IActionResult> Delete([FromRoute] Guid id)

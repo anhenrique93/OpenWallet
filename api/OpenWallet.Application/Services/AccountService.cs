@@ -1,10 +1,7 @@
-﻿using OpenWallet.Application.Models;
+﻿using OpenWallet.Application.DTOs.Account;
+using OpenWallet.Application.Models;
 using OpenWallet.Application.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using OpenWallet.Application.ValueObjects;
 
 namespace OpenWallet.Application.Services
 {
@@ -12,30 +9,63 @@ namespace OpenWallet.Application.Services
     {
 
         private readonly IAccountRepository _accountRepository;
+        private readonly IAccountCategoryRepository _accountCategoryRepository;
 
-        public AccountService(IAccountRepository accountRepository)
+        public AccountService(IAccountRepository accountRepository, IAccountCategoryRepository accountCategoryRepository)
         {
             _accountRepository = accountRepository;
+            _accountCategoryRepository = accountCategoryRepository;
         }
 
-        public Task<bool> CreateAsync(Account account)
+        public async Task<AccountResponseDto> CreateAsync(CreateAccountRequestDto accountDto)
         {
-            return _accountRepository.CreateAsync(account);
+            var accountCategory = await _accountCategoryRepository.GetByIdAsync(accountDto.AccountCategoryId);
+
+            if (accountCategory is null)
+            {
+                return null;
+            }
+
+            var currency = Currency.Create(accountDto.Currency);
+            var money = Money.Create(accountDto.Amount, currency);
+
+
+            var account = new Account(
+                name: accountDto.Name,
+                description: accountDto.Description,
+                category: accountCategory,
+                money: money
+            );
+
+            var result = await _accountRepository.CreateAsync(account);
+
+            if (!result) return null;
+
+            return new AccountResponseDto
+            (
+                account.Id,
+                account.Name,
+                account.Description,
+                account.Money,
+                accountCategory.Name,
+                account.CreatedAt,
+                account.UpdatedAt
+            );
         }
 
         public Task<bool> DeleteByIdAsync(Guid id)
         {
-            return _accountRepository.DeleteByIdAsync(id);
+            throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<Account>> GetAllAsync()
+        public Task<IEnumerable<AccountResponseDto>> GetAllAsync()
         {
-            return _accountRepository.GetAllAsync();
+            throw new NotImplementedException();
         }
 
-        public Task<Account?> GetByIdAsync(Guid id)
+        public Task<AccountResponseDto?> GetByIdAsync(Guid id)
         {
-            return _accountRepository.GetByIdAsync(id);
+            throw new NotImplementedException();
         }
 
         public async Task<Account?> UpdateAsync(Account account)

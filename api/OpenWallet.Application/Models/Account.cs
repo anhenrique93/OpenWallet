@@ -17,7 +17,7 @@ namespace OpenWallet.Application.Models
         // Constructor for NEW account (e.g., when creating a new account)
         public Account(string name, string description, AccountCategory category, Money money)
         {
-            Name = Guard.AgainstInvalidLength(name, 5, 128, nameof(name));
+            Name = Guard.AgainstInvalidLength(name, 3, 128, nameof(name));
             Description = Guard.AgainstInvalidLength(description, 10, 1000, nameof(description)); 
             Category = category;
             Money = money;

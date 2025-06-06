@@ -1,17 +1,13 @@
-﻿using OpenWallet.Application.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using OpenWallet.Application.DTOs.Account;
+using OpenWallet.Application.Models;
 
 namespace OpenWallet.Application.Services
 {
     public interface IAccountService
     {
-        Task<bool> CreateAsync(Account account);
-        Task<Account?> GetByIdAsync(Guid id);
-        Task<IEnumerable<Account>> GetAllAsync();
+        Task<AccountResponseDto> CreateAsync(CreateAccountRequestDto accountDto);
+        Task<AccountResponseDto?> GetByIdAsync(Guid id);
+        Task<IEnumerable<AccountResponseDto>> GetAllAsync();
         Task<Account?> UpdateAsync(Account account);
         Task<bool> DeleteByIdAsync(Guid id);
     }

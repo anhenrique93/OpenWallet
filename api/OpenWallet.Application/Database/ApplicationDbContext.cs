@@ -28,7 +28,7 @@ namespace OpenWallet.Application.Database
                         AccountCategory.CreateSavingsCategory,
                         AccountCategory.CreateInvestmentsCategory,
                         AccountCategory.CreateExpensesCategory,
-                        AccountCategory.CreateINcomeCategory
+                        AccountCategory.CreateIncomeCategory
                     ]
                 );
 

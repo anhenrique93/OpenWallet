@@ -33,7 +33,7 @@ namespace OpenWallet.Application.Models
         public static AccountCategory CreateSavingsCategory => new AccountCategory("Savings");
         public static AccountCategory CreateInvestmentsCategory => new AccountCategory("Investments");
         public static AccountCategory CreateExpensesCategory => new AccountCategory("Expenses");
-        public static AccountCategory CreateINcomeCategory => new AccountCategory("Income");
+        public static AccountCategory CreateIncomeCategory => new AccountCategory("Income");
 
         protected AccountCategory() { }
     }

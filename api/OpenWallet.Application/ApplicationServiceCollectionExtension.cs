@@ -16,6 +16,7 @@ namespace OpenWallet.Application
         {
             services.AddScoped<IAccountRepository, AccountRepository>();
             services.AddScoped<IAccountService, AccountService>();
+            services.AddScoped<IAccountCategoryRepository, AccountCategoryRepository>();
             return services;
         }
 

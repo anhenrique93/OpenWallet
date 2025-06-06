@@ -1,5 +1,4 @@
-﻿using OpenWallet.Application.Models;
-using OpenWallet.Application.ValueObjects;
+﻿using OpenWallet.Application.DTOs.Account;
 using OpenWallet.Contracts.Requests;
 using OpenWallet.Contracts.Responses;
 
@@ -7,64 +6,36 @@ namespace OpenWallet.Api.Mapping
 {
     public static class ContractMapping
     {
-        public static Account MapToAccount(this CreateAccountRequest request)
+        public static CreateAccountRequestDto MapToAccountRequestDto(this CreateAccountRequest request)
         {
-            var category = new AccountCategory(request.Category);
-            var currency = Currency.Create(request.Currency);
-            var money = Money.Create(request.InitialAmount, currency);
-
-            return new Account(
-                name: request.Name,
-                description: request.Description,
-                category: category,
-                money: money
+            return new CreateAccountRequestDto(
+                request.Name,
+                request.Description,
+                request.Currency,
+                request.InitialAmount,
+                request.CategoryId
             );
         }
 
-        public static Account MapToAccount(this UpdateAccountRequest request, Guid id, DateTime createdAt, decimal amount)
+        public static AccountResponse MapToResponse(this AccountResponseDto dto)
         {
-            var category = new AccountCategory(request.Category);
-            var currency = Currency.Create(request.Currency);
-            var newMoney = Money.Create(amount, currency);
-
-            return new Account(
-                id: id,
-                name: request.Name,
-                description: request.Description,
-                money: newMoney,
-                category: category,
-                createdAt: createdAt,
-                updatedAt: DateTime.UtcNow
-            );
-        }
-
-        public static AccountResponse MapToResponse(this Account account)
-        {
-            var moneyResponse = new MoneyResponse
+            var money = new MoneyResponse
             {
-                Amount = account.Money.Amount,
-                Currency = account.Money.Currency.Code,
-                Symbol = account.Money.Currency.Symbol,
-                Name = account.Money.Currency.Name
+                Amount = dto.Money.Amount,
+                Currency = dto.Money.Currency.Code,
+                Symbol = dto.Money.Currency.Symbol,
+                Name = dto.Money.Currency.Name
             };
 
             return new AccountResponse
             {
-                Id = account.Id,
-                Name = account.Name,
-                Description = account.Description,
-                Category = account.Category.Name,
-                Money = moneyResponse,
-                CreatedAt = account.CreatedAt,
-                UpdatedAt = account.UpdatedAt
-            };
-        }
-
-        public static AccountsResponse MapToResponse(this IEnumerable<Account> accounts)
-        {
-            return new AccountsResponse
-            {
-                Items = accounts.Select(MapToResponse),
+                Id = dto.Id,
+                Name = dto.Name,
+                Description = dto.Description,
+                Category = dto.Category,
+                Money = money,
+                CreatedAt = dto.CreatedAt,
+                UpdatedAt = dto.UpdatedAt
             };
         }
     }
