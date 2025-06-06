@@ -15,19 +15,23 @@ namespace OpenWallet.Application.Repositories
 
         public async Task<bool> CreateAsync(Account account, CancellationToken token = default)
         {
-            await _context.Accounts.AddAsync(account);
+            await _context.Accounts.AddAsync(account, token);
             await _context.SaveChangesAsync(token);
             return true;
         }
 
         public async Task<Account?> GetByIdAsync(Guid id, CancellationToken token = default)
         {
-            return await _context.Accounts.FirstOrDefaultAsync(x => x.Id == id, token);
+            return await _context.Accounts
+                .Include(a => a.Category)
+                .FirstOrDefaultAsync(x => x.Id == id, token);
         }
 
         public async Task<IEnumerable<Account>> GetAllAsync(CancellationToken token = default)
         {
-            return await _context.Accounts.ToListAsync(token);
+            return await _context.Accounts
+                .Include(a => a.Category)
+                .ToListAsync(token);
         }
 
         public async Task<bool> UpdateAsync(Account account, CancellationToken token = default)

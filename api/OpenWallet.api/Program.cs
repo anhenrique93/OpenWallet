@@ -1,6 +1,7 @@
 using OpenWallet.Api.Mapping;
 using OpenWallet.Application;
 using OpenWallet.Application.Database;
+using Microsoft.AspNetCore.Http.Json;
 
 var builder = WebApplication.CreateBuilder(args);
 

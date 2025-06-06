@@ -2,9 +2,7 @@
 using OpenWallet.Application.DTOs.Account;
 using OpenWallet.Application.Models;
 using OpenWallet.Application.Repositories;
-using OpenWallet.Application.Validator;
 using OpenWallet.Application.ValueObjects;
-using System.Threading;
 
 namespace OpenWallet.Application.Services
 {
@@ -56,23 +54,45 @@ namespace OpenWallet.Application.Services
                 account.UpdatedAt
             );
         }
+        public async Task<AccountResponseDto?> GetByIdAsync(Guid id, CancellationToken token = default)
+        {
+            var account = await _accountRepository.GetByIdAsync(id, token);
+
+            if (account is null) return null;
+
+            return new AccountResponseDto
+           (
+               account.Id,
+               account.Name,
+               account.Description,
+               account.Money,
+               account.Category.Name,
+               account.CreatedAt,
+               account.UpdatedAt
+           );
+        }
 
         public async Task<bool> DeleteByIdAsync(Guid id, CancellationToken token = default)
         {
-            throw new NotImplementedException();
+            return await _accountRepository.DeleteByIdAsync(id, token);
         }
 
         public async Task<IEnumerable<AccountResponseDto>> GetAllAsync(CancellationToken token = default)
         {
-            throw new NotImplementedException();
+            var accounts = await _accountRepository.GetAllAsync(token);
+            return accounts.Select(account => new AccountResponseDto
+            (
+                account.Id,
+                account.Name,
+                account.Description,
+                account.Money,
+                account.Category.Name,
+                account.CreatedAt,
+                account.UpdatedAt
+            ));
         }
 
-        public async Task<AccountResponseDto?> GetByIdAsync(Guid id, CancellationToken token = default)
-        {
-            throw new NotImplementedException();
-        }
-
-        public async Task<Account?> UpdateAsync(Account account, CancellationToken token = default)
+        public async Task<AccountResponseDto> UpdateAsync(Account account, CancellationToken token = default)
         {
             throw new NotImplementedException();
         }

@@ -33,25 +33,23 @@ namespace OpenWallet.Api.Controllers
         [HttpGet(ApiEndpoints.Accounts.Get)]
         public async Task<IActionResult> Get([FromRoute] Guid id)
         {
-            var account = await _accountService.GetByIdAsync(id);
-            if (account is null)
-            {
-                return NotFound();
-            }
+            var accountResponseDto = await _accountService.GetByIdAsync(id);
+            if (accountResponseDto is null) return NotFound();
 
-            var response = account.MapToResponse();
+            var response = accountResponseDto.MapToResponse();
             return Ok(response);
         }
 
-        /*
+        
         [HttpGet(ApiEndpoints.Accounts.GetAll)]
         public async Task<IActionResult> GetAll()
         {
-            var accounts = await _accountService.GetAllAsync();
-            var accountsResponse = accounts.MapToResponse();
-            return Ok(accountsResponse);
+            var accountsResponseDto = await _accountService.GetAllAsync();
+
+            var response = accountsResponseDto.MapToResponse();
+            return Ok(response);
         }
-        */
+        
 
         /*
         [HttpPut(ApiEndpoints.Accounts.Update)]
@@ -78,9 +76,9 @@ namespace OpenWallet.Api.Controllers
         */
 
         [HttpDelete(ApiEndpoints.Accounts.Delete)]
-        public async Task<IActionResult> Delete([FromRoute] Guid id)
+        public async Task<IActionResult> Delete([FromRoute] Guid id, CancellationToken token)
         {
-            var deleted = await _accountService.DeleteByIdAsync(id);
+            var deleted = await _accountService.DeleteByIdAsync(id, token);
             if (!deleted) return NotFound();
             return Ok();
         }

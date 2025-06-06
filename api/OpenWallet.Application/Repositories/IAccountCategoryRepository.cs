@@ -9,10 +9,10 @@ namespace OpenWallet.Application.Repositories
 {
     public interface IAccountCategoryRepository
     {
-        Task<bool> CreateAsync(AccountCategory category);
-        Task<AccountCategory?> GetByIdAsync(Guid id);
-        Task<IEnumerable<AccountCategory>> GetAllAsync();
-        Task<bool> UpdateAsync(AccountCategory category);
-        Task<bool> DeleteByIdAsync(Guid id);
+        Task<bool> CreateAsync(AccountCategory category, CancellationToken token = default);
+        Task<AccountCategory?> GetByIdAsync(Guid id, CancellationToken token = default);
+        Task<IEnumerable<AccountCategory>> GetAllAsync(CancellationToken token = default);
+        Task<bool> UpdateAsync(AccountCategory category, CancellationToken token = default);
+        Task<bool> DeleteByIdAsync(Guid id, CancellationToken token = default);
     }
 }

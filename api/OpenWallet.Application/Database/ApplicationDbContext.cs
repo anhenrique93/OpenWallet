@@ -1,13 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using OpenWallet.Application.Database.Configurations;
 using OpenWallet.Application.Models;
-using OpenWallet.Application.ValueObjects;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Transactions;
 
 namespace OpenWallet.Application.Database
 {

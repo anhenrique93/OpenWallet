@@ -38,5 +38,13 @@ namespace OpenWallet.Api.Mapping
                 UpdatedAt = dto.UpdatedAt
             };
         }
+
+        public static AccountsResponse MapToResponse(this IEnumerable<AccountResponseDto> accountsDtos)
+        {
+            return new AccountsResponse
+            {
+                Items = accountsDtos.Select(MapToResponse),
+            };
+        }
     }
 }
